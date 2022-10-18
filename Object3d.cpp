@@ -409,6 +409,7 @@ void Object3d::CreateModel()
 		assert(0);
 	}
 
+
 	vector<XMFLOAT3>positions;  //頂点座標
 	vector<XMFLOAT3>normals;   //法線ベクトル
 	vector<XMFLOAT2>texcoords; //テクスチャUV
