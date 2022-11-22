@@ -29,11 +29,40 @@ public: // サブクラス
 		XMFLOAT2 uv;  // uv座標
 	};
 
-	// 定数バッファ用データ構造体
-	struct ConstBufferData
+	// 定数バッファ用データ構造体B0
+	struct ConstBufferDataB0
 	{
-		XMFLOAT4 color;	// 色 (RGBA)
+		//XMFLOAT4 color;	// 色 (RGBA)
 		XMMATRIX mat;	// ３Ｄ変換行列
+	};
+
+	// 定数バッファ用データ構造体B1
+	struct ConstBufferDataB1
+	{
+		XMFLOAT3 ambient;
+		float pad1;
+		XMFLOAT3 diffuse;
+		float pad2;
+		XMFLOAT3 specular;
+		float alpha;
+	};
+
+	//マテリアル
+	struct Material
+	{
+		std::string name;  //マテリアル名
+		XMFLOAT3 ambient;  //アンビエント影響度
+		XMFLOAT3 diffuse;  //ディフューズ影響度
+		XMFLOAT3 specular; //スペキュラー影響度
+		float alpha;       //アルファ
+		std::string textureFilename;  //テクスチャファイル名
+		//コンストラクタ
+		Material() {
+			ambient = { 0.3f, 0.3f, 0.3f };
+			diffuse = { 0.0f, 0.0f, 0.0f };
+			specular = { 0.0f, 0.0f, 0.0f };
+			alpha = 1.0f;
+		}
 	};
 
 private: // 定数
@@ -203,7 +232,9 @@ public: // メンバ関数
 	void SetPosition(const XMFLOAT3& position) { this->position = position; }
 
 private: // メンバ変数
-	ComPtr<ID3D12Resource> constBuff; // 定数バッファ
+	//ComPtr<ID3D12Resource> constBuff; // 定数バッファ
+	ComPtr<ID3D12Resource>constBuffB0;
+	ComPtr<ID3D12Resource>constBuffB1;
 	// 色
 	XMFLOAT4 color = { 1,1,1,1 };
 	// ローカルスケール
@@ -216,5 +247,8 @@ private: // メンバ変数
 	XMMATRIX matWorld;
 	// 親オブジェクト
 	Object3d* parent = nullptr;
+
+	//マテリアル
+	static Material material;
 };
 
